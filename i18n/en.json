@@ -11,7 +11,9 @@
 	"contributionscores-score": "Score",
 	"contributionscores-rank": "Rank",
 	"contributionscores-pages": "Pages",
+	"contributionscores-creations": "Creations",
 	"contributionscores-changes": "Changes",
+	"contributionscores-characters": "Characters",
 	"contributionscores-username": "Username",
 	"contributionscores-invalidusername": "Invalid username",
 	"contributionscores-invalidmetric": "Invalid metric"

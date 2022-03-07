@@ -1,12 +1,15 @@
 {
 	"name": "ContributionScores",
-	"author": "Tim Laqua",
+	"author": [
+		"Tim Laqua",
+		"Chris Rishel"
+	],
 	"url": "https://www.mediawiki.org/wiki/Extension:Contribution_Scores",
 	"descriptionmsg": "contributionscores-desc",
-	"version": "1.26.1",
+	"version": "1.37.1-wikianesthesia",
 	"type": "specialpage",
 	"requires": {
-		"MediaWiki": ">= 1.34.0"
+		"MediaWiki": ">= 1.35.0"
 	},
 	"SpecialPages": {
 		"ContributionScores": "ContributionScores"
@@ -15,6 +18,7 @@
 		"ContributionScores": "src/ContributionScores.php"
 	},
 	"Hooks": {
+		"PageSaveComplete": "ContributionScores::onPageSaveComplete",
 		"ParserFirstCallInit": "ContributionScores::onParserFirstCallInit"
 	},
 	"MessagesDirs": {
@@ -43,6 +47,14 @@
 			"value": [],
 			"description": "Array of usernames to exclude from the reporting."
 		},
+		"ContribScoreIncludeNamespaces": {
+			"value": [],
+			"description": "If not empty, will limit reporting to pages in the defined namespace."
+		},
+		"ContribScoreMetric": {
+			"value": "score",
+			"description": "If not empty, will limit reporting to pages in the defined namespace."
+		},
 		"ContribScoresUseRealName": {
 			"value": false,
 			"description": "Set to true to use real user names when available."
@@ -50,14 +62,6 @@
 		"ContribScoreDisableCache": {
 			"value": false,
 			"description": "Set to true to disable cache for parser function and inclusion of table."
-		},
-		"ContribScoreUseRoughEditCount": {
-			"value": false,
-			"description": "Set to true to use the rough number of edits in user table, for performance issue."
-		},
-		"ContribScoreCacheTTL": {
-			"value": 30,
-			"description": "Cache the contribution scores data, in minutes."
 		}
 	},
 	"manifest_version": 2
