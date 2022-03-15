@@ -4,7 +4,7 @@
 		"Tim Laqua",
 		"Chris Rishel"
 	],
-	"url": "https://www.mediawiki.org/wiki/Extension:Contribution_Scores",
+	"url": "https://github.com/wikianesthesia/mediawiki-extensions-ContributionScores",
 	"descriptionmsg": "contributionscores-desc",
 	"version": "1.37.1-wikianesthesia",
 	"type": "specialpage",
