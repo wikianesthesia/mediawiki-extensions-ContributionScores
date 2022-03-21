@@ -96,7 +96,7 @@ class ContributionScores extends IncludableSpecialPage {
             if( $dateEnd > 0 ) {
                 $sanitizedDateEnd = $dbr->addQuotes( $dateEnd );
 
-                $revWhere[ 'conds' ][] = $revTable . '.rev_timestamp < \'' . $dbr->timestamp( $sanitizedDateEnd ) . '\'';
+                $revWhere[ 'conds' ][] = $revTable . '.rev_timestamp <= \'' . $dbr->timestamp( $sanitizedDateEnd ) . '\'';
             }
 
             if( $metric === 'score' ) {
@@ -240,18 +240,20 @@ class ContributionScores extends IncludableSpecialPage {
             return $metricValue;
         };
 
-        $cache = MediaWikiServices::getInstance()->getMainWANObjectCache();
-        $cacheKey = self::getWANObjectCacheKey( $user, $metric );
-
-        $metricValue = $cache->getWithSetCallback(
-            $cacheKey,
-            WANObjectCache::TTL_DAY,
-            $callback
-        );
-
-        // If a date range is specified, don't cache the result
         if( $wgContribScoreDisableCache || $dateStart || $dateEnd ) {
-            $cache->delete( $cacheKey );
+            $ttl = null;
+            $setOpts = [];
+
+            $metricValue = $callback( null, $ttl, $setOpts );
+        } else {
+            $cache = MediaWikiServices::getInstance()->getMainWANObjectCache();
+            $cacheKey = self::getWANObjectCacheKey( $user, $metric );
+
+            $metricValue = $cache->getWithSetCallback(
+                $cacheKey,
+                WANObjectCache::TTL_DAY,
+                $callback
+            );
         }
 
         return $metricValue;
